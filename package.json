@@ -1,0 +1,22 @@
+{
+  "name": "chat",
+  "version": "0.0.1",
+  "description": "chat service",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "aws-sdk": "^2.1618.0",
+    "lambda-actions": "^1.0.0-rc.1",
+    "mongoose": "^8.3.2",
+    "serverless-prune-plugin": "^2.0.2",
+    "uuid": "^9.0.1"
+  },
+  "scripts": {
+    "start": "nodemon app.mjs",
+    "sls": "sls offline start"
+  },
+  "devDependencies": {
+    "serverless-offline": "^13.4.0"
+  }
+}

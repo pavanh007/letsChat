@@ -1,0 +1,37 @@
+service: chat-application
+frameworkVersion: '3'
+
+plugins:
+  - serverless-offline
+  - serverless-prune-plugin
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+  environment:
+    CONNECTION_RETRIES: 5
+    DB_INTERVAL_IN_MS: 2000 
+    DB_CONN_URI: ""
+    WSSAPIGATEWAYENDPOINT:
+      Fn::Join:
+        - ""
+        - - Ref: WebsocketsApi
+          - ".execute-api."
+          - Ref: AWS::Region
+          - ".amazonaws.com/${sls:stage}"
+
+functions:
+  chatHandler:
+    handler: app.handler
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: getClients
+      - websocket:
+          route: sendMessage
+      - websocket:
+          route: getMessages
